@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md flex flex-col">
+      <div class="p-6 border-b">
+        <h1 class="text-xl font-bold text-gray-800">Painel Admin</h1>
+      </div>
+      <nav class="flex-1 p-4 space-y-4">
+        <button onclick="mostrar('usuarios')" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md">Listar Usuários</button>
+        <button onclick="mostrar('produtos')" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md">Listar Produtos</button>
+    </nav>
+    <nav class="flex p-4 w-full">
+        <div class="justify-end">   
+            <button class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md"><a href="../index.html">Home</a></button>
+        </div>
+    </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 p-6 overflow-auto">
+      <div id="usuarios" class="hidden">
+        <h2 class="text-2xl font-semibold mb-4">Usuários</h2>
+        <table class="w-full border rounded-md bg-white shadow-sm">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="text-left p-3">Nome</th>
+              <th class="text-left p-3">Email</th>
+              <th class="text-left p-3">Cargo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-3">João Silva</td>
+              <td class="p-3">joao@example.com</td>
+              <td class="p-3">USER</td>
+            </tr>
+            <!-- Adicione mais usuários aqui -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="produtos" class="hidden">
+        <h2 class="text-2xl font-semibold mb-4">Produtos</h2>
+        <table class="w-full border rounded-md bg-white shadow-sm">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="text-left p-3">Produto</th>
+              <th class="text-left p-3">Preço</th>
+              <th class="text-left p-3">Estoque</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-3">Notebook Dell</td>
+              <td class="p-3">R$ 4.000,00</td>
+              <td class="p-3">12</td>
+            </tr>
+            <!-- Adicione mais produtos aqui -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Script para alternar entre usuários e produtos -->
+  <script>
+    function mostrar(secao) {
+      document.getElementById('usuarios').classList.add('hidden');
+      document.getElementById('produtos').classList.add('hidden');
+      document.getElementById(secao).classList.remove('hidden');
+    }
+
+    // Mostrar usuários por padrão
+    mostrar('usuarios');
+  </script>
+
+</body>
+</html>
