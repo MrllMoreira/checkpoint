@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  role     Role   @default(USER)
+  avatar   String?
+  password String
+}
+
+model Client {
+  id      Int    @id @default(autoincrement())
+  user_id Int    // apenas referência numérica, sem chave estrangeira
+  cpf     String @unique
+}
+
+model Company {
+  id      Int    @id @default(autoincrement())
+  user_id Int
+  cnpj    String @unique
+}
+
+model Products {
+  id            Int    @id @default(autoincrement())
+  user_id       Int    // dono do produto (ex: empresa)
+  name          String
+  photo         String
+  description   String
+  price         Float
+  category_game String
+  platform      String
+  quant_stock   Int
+}
+
+model Request {
+  id            Int    @id @default(autoincrement())
+  user_id       Int
+  quant_request Int
+}
+
+model Kart {
+  id         Int @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+}
+
+model Feedback {
+  id               Int    @id @default(autoincrement())
+  user_id          Int
+  comment          String
+  stars_avaliation Int
+}
