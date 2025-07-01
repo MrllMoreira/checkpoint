@@ -1,0 +1,38 @@
+{
+  "name": "checkpoint-",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "BackEnd do website Checkpoint: Um eccomerce de jogos",
+  "main": "index.js",
+  "scripts": {
+    "version": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KauanLeonel/Checkpoint-.git"
+  },
+  "keywords": [
+    "games"
+  ],
+  "author": "Kauan Leonel, Murillo Diogo, Luan Ibanhez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KauanLeonel/Checkpoint-/issues"
+  },
+  "homepage": "https://github.com/KauanLeonel/Checkpoint-#readme",
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0",
+    "multer": "^2.0.1",
+    "puppeteer": "^24.10.2",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "prisma": "^6.10.1"
+  }
+}
