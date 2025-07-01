@@ -21,7 +21,7 @@ export default async function createUserController(req, res) {
       avatar: avatar, // Pode ser undefined (se nao for obrigatorio)
     };
 
-    // Valida��o com Zod
+    // Validacao com Zod
     const { success, error, data: userValidated } = userValidator(user);
 
     if (!success) {
@@ -31,7 +31,7 @@ export default async function createUserController(req, res) {
       });
     }
 
-    // Inser��o no banco
+    // Insercao no banco
     const result = await create(userValidated);
 
     return res.status(201).json({
@@ -40,7 +40,11 @@ export default async function createUserController(req, res) {
     });
 
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Erro interno no servidor." });
-  }
+  console.error('[ERRO AO CRIAR USUÁRIO]', err);
+  return res.status(500).json({
+    error: "Erro interno no servidor.",
+    message: err.message,
+    stack: err.stack
+  });
+}
 }

@@ -1,9 +1,10 @@
 import { create, productValidator } from "../models/productModel.js";
 export default async function createProductController(req, res) {
 
-    const user = req.body;
+    const product = req.body;
 
-    const { success, error, data: productValited } = productValidator(user, { id: true })
+    const { success, error, data: productValited } = productValidator(product)
+    console.log(success);
 
     // Verifica se a validação falhou (success é false)
     if (!success) {
@@ -15,7 +16,6 @@ export default async function createProductController(req, res) {
     }
 
     const result = await create(productValited)
-
 
     return res.json({
         message: "Produto criado com sucesso",

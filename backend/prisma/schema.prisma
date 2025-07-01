@@ -41,7 +41,6 @@ model Company {
 
 model Products {
   id            Int    @id @default(autoincrement())
-  user_id       Int    // dono do produto (ex: empresa)
   name          String
   photo         String
   description   String

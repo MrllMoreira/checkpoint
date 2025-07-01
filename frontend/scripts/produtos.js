@@ -1,62 +1,68 @@
 async function createProduct(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const user_id = document.getElementById('user_id').value;
-    const name = document.getElementById('name').value;
-    const photo = document.getElementById('photo').value;
-    const description = document.getElementById('description').value;
-    const price = parseFloat(document.getElementById('price').value);
-    const category_game = document.getElementById('category_game').value;
-    const platform = document.getElementById('platform').value;
-    const quant_stock = parseInt(document.getElementById('quant_stock').value);
+  const form = event.target;
+  const Id = 1;
+  const name = form.name.value.trim();
+  const photo = form.photo.value.trim();
+  const description = form.description.value.trim();
+  const price = parseFloat(form.price.value);
+  const category_game = form.category_game.value;
+  const platform = form.platform.value;
+  const quant_stock = parseInt(form.quant_stock.value);
 
-    const product = {
-        user_id,
-        name,
-        photo,
-        description,
-        price,
-        category_game,
-        platform,
-        quant_stock
-    };
+  if (!name || !photo || !description || !price || !category_game || !platform || !quant_stock) {
+    alert('Por favor, preencha todos os campos!');
+    return;
+  }
 
-    try {
-        const response = await fetch('http://localhost:3000/product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
-        });
+  const formData = new FormData(form);
 
-       if (!response.ok) {
+  const product = {
+    name: name,
+    photo: photo,
+    description: description,
+    price: price,
+    category_game: category_game,
+    platform: platform,
+    quant_stock: quant_stock
+  };
+
+  try {
+    const response = await fetch('http://localhost:3000/product', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    });
+    if (!response.ok) {
       const error = await response.json();
-console.error('Erro do backend:', error);
-alert('Erro: ' + JSON.stringify(error));
+      console.error('Erro do backend:', error);
+      alert('Erro: ' + JSON.stringify(error));
       return;
     }
 
 
-        const result = await response.json();
-        alert('Produto cadastrado com sucesso!');
-        console.log(result);
+    const result = await response.json();
+    alert('Produto cadastrado com sucesso!');
 
-        // Limpar o formulário
-        document.getElementById('user_id').value = '';
-        document.getElementById('name').value = '';
-        document.getElementById('photo').value = '';
-        document.getElementById('description').value = '';
-        document.getElementById('price').value = '';
-        document.getElementById('category_game').value = '';
-        document.getElementById('platform').value = '';
-        document.getElementById('quant_stock').value = '';
+    // Limpar o formulário
+    form.name.value = '';
+    form.photo.value = '';
+    form.description.value = '';
+    form.price.value = '';
+    form.category_game.value = '';
+    form.platform.value = '';
+    form.quant_stock.value = '';
+    console.log("teste");
+  } catch (error) {
+    console.error('Erro ao cadastrar produto:', error);
+    alert('Erro ao cadastrar produto');
+  }
 
-    } catch (error) {
-        console.error('Erro ao cadastrar produto:', error);
-        alert('Erro ao cadastrar produto');
-    }
 }
+
 
 async function getById(product, id) {
   try {

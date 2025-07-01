@@ -3,12 +3,7 @@ import { z } from 'zod'
 
 const prisma = new PrismaClient();
 
-const productSchema = z.object({
-    user_id: z.string({
-        invalid_type_error: "O ID do usuário deve ser um número.",
-        required_error: "O ID do usuário é obrigatório."
-      }),
-      
+const productSchema = z.object({ 
   name: z.string({
       invalid_type_error: "O nome deve ser uma string.",
       required_error: "O nome é obrigatório."
@@ -49,9 +44,6 @@ const productSchema = z.object({
 });
 
 export const productValidator = (products, partial = null) => {
-  if (partial) {
-    return productSchema.partial(partial).safeParse(products);
-  }
   return productSchema.safeParse(products);
 }
 
