@@ -11,8 +11,6 @@ const productSchema = z.object({
     .min(3, { message: "O nome deve ter no mínimo 3 caracteres." })
     .max(255, { message: "O nome deve ter no máximo 255 caracteres." }),
 
-  photo: z.string().optional().nullable(),
-
   description: z.string({
       invalid_type_error: "A descrição deve ser uma string.",
       required_error: "A descrição é obrigatória."

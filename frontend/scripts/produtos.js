@@ -1,40 +1,33 @@
 async function createProduct(event) {
   event.preventDefault();
 
+
   const form = event.target;
-  const Id = 1;
   const name = form.name.value.trim();
-  const photo = form.photo.value.trim();
+  const photo = form.photo.files[0];
   const description = form.description.value.trim();
   const price = parseFloat(form.price.value);
   const category_game = form.category_game.value;
   const platform = form.platform.value;
   const quant_stock = parseInt(form.quant_stock.value);
-
   if (!name || !photo || !description || !price || !category_game || !platform || !quant_stock) {
     alert('Por favor, preencha todos os campos!');
     return;
   }
 
-  const formData = new FormData(form);
-
-  const product = {
-    name: name,
-    photo: photo,
-    description: description,
-    price: price,
-    category_game: category_game,
-    platform: platform,
-    quant_stock: quant_stock
-  };
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('photo', photo);
+  formData.append('description', description);
+  formData.append('price', price);
+  formData.append('category_game', category_game);
+  formData.append('platform', platform);
+  formData.append('quant_stock', quant_stock);
 
   try {
     const response = await fetch('http://localhost:3000/product', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(product)
+      body: formData
     });
     if (!response.ok) {
       const error = await response.json();
@@ -42,7 +35,6 @@ async function createProduct(event) {
       alert('Erro: ' + JSON.stringify(error));
       return;
     }
-
 
     const result = await response.json();
     alert('Produto cadastrado com sucesso!');
@@ -55,11 +47,12 @@ async function createProduct(event) {
     form.category_game.value = '';
     form.platform.value = '';
     form.quant_stock.value = '';
-    console.log("teste");
   } catch (error) {
     console.error('Erro ao cadastrar produto:', error);
     alert('Erro ao cadastrar produto');
   }
+
+  window.location.href = '../index.html';
 
 }
 
